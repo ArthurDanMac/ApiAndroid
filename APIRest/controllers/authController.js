@@ -9,8 +9,10 @@ const USER = {
 };
 
 export const login = async (req, res) => {
+  
   const { username, password,email } = req.body;
-
+/*
+//Hecho con usuario hardcodeado para pruebas
   if (username !== USER.username) {
     return res.status(401).json({ message: "Usuario incorrecto" });
   }
@@ -20,4 +22,28 @@ export const login = async (req, res) => {
 
   const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1h" });
   res.json({ token });
+*/
+try {
+    // Buscar usuario en BD
+    const [rows] = await db.query("SELECT * FROM usuarios WHERE email = ?", [email]);
+
+    if (rows.length === 0) {
+      return res.status(401).json({ error: "Usuario no encontrado" });
+    }
+
+    const user = rows[0];
+
+    // Verificar contraseña
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      return res.status(401).json({ error: "Contraseña incorrecta" });
+    }
+
+    // Generar token
+   const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1h" });
+  res.json({ token });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error de login" });
+  }
 };
