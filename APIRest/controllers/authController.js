@@ -9,7 +9,7 @@ const USER = {
 };
 
 export const login = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password,email } = req.body;
 
   if (username !== USER.username) {
     return res.status(401).json({ message: "Usuario incorrecto" });
