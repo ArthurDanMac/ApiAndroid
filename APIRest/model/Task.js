@@ -1,13 +1,13 @@
 import pool from "../config/db.js";
 
 export class Task {
-  static async getAll() {
-    const [rows] = await pool.query("SELECT * FROM task");
+  static async getAll(user_id) {
+    const [rows] = await pool.query("SELECT * FROM task WHERE user_id=?", [user_id]);
     return rows;
   }
 
   static async getById(id) {
-    const [rows] = await pool.query("SELECT * FROM task WHERE id = ?", [id]);
+    const [rows] = await pool.query("SELECT * FROM task WHERE id = ? AND user_id=?", [id, user_id]);
     return rows[0];
   }
 
