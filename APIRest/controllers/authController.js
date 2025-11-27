@@ -30,7 +30,7 @@ export const login = async (req, res) => {
     const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]);
 
     if (rows.length === 0) {
-      return res.status(401).json({ error: "Usuario no encontrado" });
+      return res.status(401).json({ message: "Usuario no encontrado" });
     }
 
     const user = rows[0];
@@ -38,17 +38,19 @@ export const login = async (req, res) => {
     // Verificar contraseña
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      return res.status(401).json({ error: "Contraseña incorrecta" });
+      return res.status(401).json({ message: "Contraseña incorrecta" });
     }
 
     // Generar token
    const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1h" });
-   if(token!=null) 
+   if(token!=null){
+    console.log("Token generated successfully");
     res.json({ token });
+   }
   else{
     console.log("Token generation failed");
     console.error("Error generating token");
-    res.status(500).json({ error: "Error al generar el token" });
+    res.status(500).json({ message: "Error al generar el token" });
   }
   
 };
