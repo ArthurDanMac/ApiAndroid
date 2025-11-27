@@ -1,4 +1,4 @@
-import db from "../config/db.js";
+import pool from "../config/db.js";
 
 
 import jwt from "jsonwebtoken";
@@ -27,7 +27,7 @@ export const login = async (req, res) => {
   res.json({ token });
 */
     // Buscar usuario en BD
-    const [rows] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
+    const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]);
 
     if (rows.length === 0) {
       return res.status(401).json({ error: "Usuario no encontrado" });
