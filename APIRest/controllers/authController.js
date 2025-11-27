@@ -43,8 +43,12 @@ export const login = async (req, res) => {
 
     // Generar token
    const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1h" });
+   if(token!=null) 
     res.json({ token });
-    console.error(err);
-    res.status(500).json({ error: "Error de login" });
+  else{
+    console.log("Token generation failed");
+    console.error("Error generating token");
+    res.status(500).json({ error: "Error al generar el token" });
+  }
   
 };
