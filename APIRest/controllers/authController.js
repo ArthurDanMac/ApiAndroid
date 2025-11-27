@@ -26,7 +26,6 @@ export const login = async (req, res) => {
   const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1h" });
   res.json({ token });
 */
-try {
     // Buscar usuario en BD
     const [rows] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
 
@@ -44,9 +43,8 @@ try {
 
     // Generar token
    const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1h" });
-  res.json({ token });
-  } catch (err) {
+    res.json({ token });
     console.error(err);
     res.status(500).json({ error: "Error de login" });
-  }
+  
 };
