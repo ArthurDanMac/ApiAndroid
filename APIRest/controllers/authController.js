@@ -31,6 +31,8 @@ export const login = async (req, res) => {
     const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]);
 
     if (rows.length === 0) {
+      console.log("User not found in database");
+      console.error("No user found with the provided email");
       return res.status(401).json({ message: "Usuario no encontrado" });
     }
 
@@ -39,7 +41,9 @@ export const login = async (req, res) => {
     // Verificar contraseña
     const match = await bcrypt.compare(password, user.hashedpsswd);
     if (!match) {
-      return res.status(401).json({ message: "Contraseña incorrecta" });
+      console.log("Incorrect password attempt");
+      console.error("Password does not match for user:", user.username);
+      return res.status(402).json({ message: "Contraseña incorrecta" });
     }
 
     // Generar token
