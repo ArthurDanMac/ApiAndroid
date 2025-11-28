@@ -13,7 +13,7 @@ const USER = {
 
 export const login = async (req, res) => {
   
-  const { username, password,email } = req.body;
+  const { username, password, email } = req.body;
 /*
 //Hecho con usuario hardcodeado para pruebas
   if (username !== USER.username) {
@@ -36,7 +36,7 @@ export const login = async (req, res) => {
     const user = rows[0];
 
     // Verificar contraseña
-    const match = await bcrypt.compare(password, user.password);
+    const match = await bcrypt.compare(password, user.hashedpsswd);
     if (!match) {
       return res.status(401).json({ message: "Contraseña incorrecta" });
     }
