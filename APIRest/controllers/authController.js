@@ -6,10 +6,11 @@ import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 dotenv.config();
 
+/*
 const USER = {
   username: "root",
   passwordHash: await bcrypt.hash("password", 10),
-};
+};*/
 
 export const login = async (req, res) => {
   
