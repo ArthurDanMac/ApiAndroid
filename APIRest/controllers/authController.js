@@ -39,7 +39,7 @@ export const login = async (req, res) => {
     const user = rows[0];
 
     // Verificar contraseña
-    const match = await bcrypt.compare(password, user.hashedpsswd);
+    const match  = password === user.hashedpsswd;//= await compare(password, user.hashedpsswd);
     if (!match) {
       console.log("Incorrect password attempt");
       console.error("Password does not match for user:", user.username);
