@@ -4,7 +4,6 @@ import pool from "../config/db.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
-import { User } from "../model/User.js";
 dotenv.config();
 
 /*
@@ -51,7 +50,6 @@ export const login = async (req, res) => {
    const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1h" });
    if(token!=null){
     console.log("Token generated successfully");
-    User.getUserData(user);
     res.json({ token, user: { id: user.id, username: user.username, password: user.hashedpsswd, email: user.email } });
    }
   else{
