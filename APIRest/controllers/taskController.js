@@ -1,7 +1,7 @@
 import { Task } from "../model/Task.js";
 
 export const getTasks = async (req, res) => {
-  const tasks = await Task.getAll();
+  const tasks = await Task.getAll(req.body);
   res.json(tasks);
 };
 

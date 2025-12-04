@@ -5,7 +5,12 @@ export class Task {
     try {
       const [rows] = await pool.query("SELECT * FROM task WHERE user_id=?", [user_id]);
       console.log("Operación exitosa: tareas obtenidas");
-      return  rows ;
+      if (rows.length === 0) {
+        console.log("410 No se encontraron tareas para el usuario");
+      }else{
+        console.log("Operación exitosa: tareas obtenidas");
+        return  rows ;
+      }
     } catch (error) {
       console.log(`401 Error al obtener tareas: ${error.message}`);
     }
