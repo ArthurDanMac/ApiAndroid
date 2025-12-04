@@ -4,16 +4,10 @@ export class Task {
   static async getAll(user_id) {
     try {
       const [rows] = await pool.query("SELECT * FROM task WHERE user_id=?", [user_id]);
-      return {
-        success: true,
-        message: "Operación exitosa: tareas obtenidas",
-        data: rows
-      };
+      console.log("Operación exitosa: tareas obtenidas");
+      return  rows ;
     } catch (error) {
-      return {
-        success: false,
-        message: `401 Error al obtener tareas: ${error.message}`
-      };
+      console.log(`401 Error al obtener tareas: ${error.message}`);
     }
   }
 
@@ -24,21 +18,13 @@ export class Task {
         [id, user_id]
       );
       if (rows.length === 0) {
-        return {
-          success: false,
-          message: "402 No se encontró la tarea solicitada"
-        };
+        console.log("402 No se encontró la tarea solicitada");
+      } else {
+        console.log("Operación exitosa: tarea encontrada");
       }
-      return {
-        success: true,
-        message: "Operación exitosa: tarea encontrada",
-        data: rows[0]
-      };
+      return rows[0] ;
     } catch (error) {
-      return {
-        success: false,
-        message: `403 Error al obtener tarea: ${error.message}`
-      };
+      console.log(`403 Error al obtener tarea: ${error.message}`);
     }
   }
 
@@ -49,16 +35,11 @@ export class Task {
         "INSERT INTO task (name, plannedD, status, user_id) VALUES (?, ?, ?, ?)",
         [name, plannedD, status, user_id]
       );
-      return {
-        success: true,
-        message: "Operación exitosa: tarea creada",
-        data: { id: result.insertId, ...task, user_id }
-      };
+      console.log("Operación exitosa: tarea creada");
+      return {   id: result.insertId, ...task, user_id };
     } catch (error) {
-      return {
-        success: false,
-        message: `404 Error al crear tarea: ${error.message}`
-      };
+      console.log(`404 Error al crear tarea: ${error.message}`);
+      return { rows: [] };
     }
   }
 
@@ -70,20 +51,13 @@ export class Task {
         [name, plannedD, status, id, user_id]
       );
       if (result.affectedRows === 0) {
-        return {
-          success: false,
-          message: "405 No se encontró la tarea para actualizar"
-        };
+        console.log("405 No se encontró la tarea para actualizar");
+      } else {
+        console.log("Operación exitosa: tarea actualizada");
       }
-      return {
-        success: true,
-        message: "Operación exitosa: tarea actualizada"
-      };
+     
     } catch (error) {
-      return {
-        success: false,
-        message: `406 Error al actualizar tarea: ${error.message}`
-      };
+      console.log(`406 Error al actualizar tarea: ${error.message}`);
     }
   }
 
@@ -94,20 +68,12 @@ export class Task {
         [id, user_id]
       );
       if (result.affectedRows === 0) {
-        return {
-          success: false,
-          message: "407 No se encontró la tarea para eliminar"
-        };
+        console.log("407 No se encontró la tarea para eliminar");
+      } else {
+        console.log("Operación exitosa: tarea eliminada");
       }
-      return {
-        success: true,
-        message: "Operación exitosa: tarea eliminada"
-      };
     } catch (error) {
-      return {
-        success: false,
-        message: `408 Error al eliminar tarea: ${error.message}`
-      };
+      console.log(`408 Error al eliminar tarea: ${error.message}`);
     }
   }
 }
