@@ -8,7 +8,7 @@ export const getTasks = async (req, res) => {
 
 
 export const getTask = async (req, res) => {
-  const task = await Task.getById(req.params.id);
+  const task = await Task.getById(req.params.id, req.body.user_id); //manera nueva de pasar valor
   if (!task) return res.status(404).json({ message: "Tarea no encontrada" });
   res.json(task);
 };
@@ -19,11 +19,12 @@ export const createTask = async (req, res) => {
 };
 
 export const updateTask = async (req, res) => {
-  await Task.update(req.params.id, req.body);
+  await Task.update(req.body);
   res.json({ message: "Tarea actualizada" });
 };
 
 export const deleteTask = async (req, res) => {
-  await Task.delete(req.params.id);
+  const { idTask } = req.body; 
+  await Task.delete(idTask);
   res.json({ message: "Tarea eliminada" });
 };
