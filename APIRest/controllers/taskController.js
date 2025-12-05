@@ -1,14 +1,14 @@
 import { Task } from "../model/Task.js";
 
 export const getTasks = async (req, res) => {
-  const { user_id } = req.body;   // extraes el campo
-  const tasks = await Task.getAll(user_id);  // pasas solo el valor
-  res.json(tasks);
+  const { userId } = req.query;   // extraes el campo
+  const tasks = await Task.getAll(userId);  // pasas solo el valor
+  res.json(tasks );
 };
 
 
 export const getTask = async (req, res) => {
-  const task = await Task.getById(req.params.id, req.body.user_id); //manera nueva de pasar valor
+  const task = await Task.getById(req.params.id, req.params.user_id); //manera nueva de pasar valor
   if (!task) return res.status(404).json({ message: "Tarea no encontrada" });
   res.json(task);
 };
