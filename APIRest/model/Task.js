@@ -4,7 +4,6 @@ export class Task {
   static async getAll(user_id) {
     try {
       const [rows] = await pool.query("SELECT * FROM task WHERE user_id=?", [user_id]);
-      console.log("Operación exitosa: tareas obtenidas");
       if (rows.length === 0) {
         console.log("410 No se encontraron tareas para el usuario");
       }else{
@@ -26,8 +25,9 @@ export class Task {
         console.log("402 No se encontró la tarea solicitada");
       } else {
         console.log("Operación exitosa: tarea encontrada");
+       return rows[0] ;
       }
-      return rows[0] ;
+     
     } catch (error) {
       console.log(`403 Error al obtener tarea: ${error.message}`);
     }
