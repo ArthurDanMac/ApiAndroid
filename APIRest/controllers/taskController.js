@@ -1,8 +1,8 @@
 import { Task } from "../model/Task.js";
 
 export const getTasks = async (req, res) => {
-  const { userId } = req.query;   // extraes el campo
-  const tasks = await Task.getAll(userId);  // pasas solo el valor
+  const { user_id } = req.query;   // extraes el campo
+  const tasks = await Task.getAll(user_id);  // pasas solo el valor
   res.json(tasks );
 };
 
