@@ -36,11 +36,11 @@ export class Task {
   }
 
   static async update(id, task) {
-    const {  name,plannedD } = task;
+    const {  name,plannedD, status, user_id  } = task;
     try{
     await pool.query(
-      "UPDATE task SET name=?, plannedD=? WHERE id=?",
-      [name, plannedD, id]
+      "UPDATE task SET name=?, plannedD=?, status=?, user_id=? WHERE id=?",
+      [name, plannedD, status, user_id, id]
     );
     console.log("203 Tarea actualizada");
     }catch{
