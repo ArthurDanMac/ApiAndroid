@@ -23,7 +23,7 @@ export const createTask = async (req, res) => {
 
 //Actualizar una Task
 export const updateTask = async (req, res) => {
-  await Task.update(req.body);
+  await Task.update(req.params.idTask, req.body);
   res.json({ message: "Tarea actualizada" });
 };
 
