@@ -12,7 +12,7 @@ export class Task {
     }
   }
 
-  //Obtener una tarea por id y usuario
+  //Obtener una tarea por id
   static async getById(id) {
     const [rows] = await pool.query("SELECT * FROM task WHERE id = ?", [id]);
     if(rows === 0)
@@ -39,8 +39,8 @@ export class Task {
   }
 
   //Actualizar una tarea con su user_id
-  static async update(id, task) {
-    const {  name,plannedD, status, user_id  } = task;
+  static async update(task) {
+    const {  id, name, plannedD, status, user_id  } = task;
     try{
     await pool.query(
       "UPDATE task SET name=?, plannedD=?, status=?, user_id=? WHERE id=?",
