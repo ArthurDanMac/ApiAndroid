@@ -1,6 +1,7 @@
 import pool from "../config/db.js";
 
 export class Task {
+  //Obtener todas las tareas de un usuario
   static async getAll(user_id) {
     const [rows] = await pool.query("SELECT * FROM task where user_id=?", [user_id]);
     if(rows === 0)
@@ -11,8 +12,9 @@ export class Task {
     }
   }
 
-  static async getById(id, user_id) {
-    const [rows] = await pool.query("SELECT * FROM task WHERE id = ? AND user_id=?", [id, user_id]);
+  //Obtener una tarea por id y usuario
+  static async getById(id) {
+    const [rows] = await pool.query("SELECT * FROM task WHERE id = ?", [id]);
     if(rows === 0)
       console.log("401 No hay tareas para este usuario con ese id");
     else{
@@ -21,6 +23,7 @@ export class Task {
     }
   }
 
+  //Crear una nueva tarea con su user_id
   static async create(task) {
     const { name,plannedD, status, user_id } = task;
     try{
@@ -35,6 +38,7 @@ export class Task {
     }
   }
 
+  //Actualizar una tarea con su user_id
   static async update(id, task) {
     const {  name,plannedD, status, user_id  } = task;
     try{
