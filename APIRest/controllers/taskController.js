@@ -29,7 +29,7 @@ export const updateTask = async (req, res) => {
 
 //Eliminar una Task
 export const deleteTask = async (req, res) => {
-  const { idTask } = req.params; 
-  await Task.delete(idTask);
+  const { id } = req.params; 
+  await Task.delete(id);
   res.json({ message: "Tarea eliminada" });
 };
