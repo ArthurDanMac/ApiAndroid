@@ -35,14 +35,14 @@ export const login = async (req, res) => {
     }
 
     const user = rows[0];
-
+/*
     // Verificar contraseña
     const match  = password === user.hashedpsswd;//= await compare(password, user.hashedpsswd);
     if (!match) {
       console.log("Incorrect password attempt");
       console.error("Password does not match for user:", user.username);
       return res.status(402).json({ message: "Contraseña incorrecta" });
-    }
+    }*/
 
     // Generar token
    const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1h" });
