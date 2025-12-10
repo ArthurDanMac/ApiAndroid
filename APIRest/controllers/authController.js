@@ -1,4 +1,5 @@
 import pool from "../config/db.js";
+import { Users } from "../model/Users.js";
 
 
 import jwt from "jsonwebtoken";
@@ -58,4 +59,9 @@ export const login = async (req, res) => {
     res.status(500).json({ message: "Error al generar el token" });
   }
   
+};
+
+export const getAllUsers = async (req, res) => {
+  const users = await Users.getAllUsers();
+  res.json(users);
 };
