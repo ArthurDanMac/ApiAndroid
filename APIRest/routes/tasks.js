@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  getAllTasks,
   getTasks,
   getTask,
   createTask,
@@ -10,6 +11,7 @@ import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
 
+router.get("/all", verifyToken, getAllTasks);
 router.get("/", verifyToken, getTasks);
 router.get("/:id", verifyToken, getTask);
 router.post("/", verifyToken, createTask);
