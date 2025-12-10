@@ -6,9 +6,9 @@ export class Task {
   static async getAll() {
     const [rows] = await pool.query("SELECT * FROM task");
     if(rows === 0)
-      console.log("400 No hay tareas");
+      console.log("4000 No hay tareas");
     else{
-      console.log("200 Tareas encontradas");
+      console.log("2000 Tareas encontradas");
       return rows;
     }
   }
