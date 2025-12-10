@@ -1,8 +1,20 @@
 import pool from "../config/db.js";
 
 export class Task {
+
+//Obtener todas las tareas 
+  static async getAll() {
+    const [rows] = await pool.query("SELECT * FROM task");
+    if(rows === 0)
+      console.log("400 No hay tareas");
+    else{
+      console.log("200 Tareas encontradas");
+      return rows;
+    }
+  }
+
   //Obtener todas las tareas de un usuario
-  static async getAll(user_id) {
+  static async getTasksUser(user_id) {
     const [rows] = await pool.query("SELECT * FROM task where user_id=?", [user_id]);
     if(rows === 0)
       console.log("400 No hay tareas para este usuario");

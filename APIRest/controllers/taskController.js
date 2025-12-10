@@ -1,10 +1,15 @@
 import { Task } from "../model/Task.js";
 
+//Todas las Tasks para local
+export const getAllTasks = async (req, res) => {
+  const tasks = await Task.getAll();
+  res.json(tasks);
+};
 
 //Todas las Tasks por usuario
 export const getTasks = async (req, res) => {
   const { user_id } = req.query;   // --> extraes el campo
-  const tasks = await Task.getAll(user_id);  // --> pasas solo el valor
+  const tasks = await Task.getTasksUser(user_id);  // --> pasas solo el valor
   res.json(tasks );
 };
 
