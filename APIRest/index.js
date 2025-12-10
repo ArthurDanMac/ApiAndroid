@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import taskRoutes from "./routes/tasks.js";
 import authRoutes from "./routes/auth.js";
+import usersRoutes from "./routes/users.js";
 
 dotenv.config();
 const app = express();
@@ -9,6 +10,7 @@ const app = express();
 app.use(express.json());
 app.use("/api/tasks", taskRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/users", usersRoutes);
 
 app.get("/", (req, res) => res.send("API Tasks funcionando ✅"));
 
